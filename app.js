@@ -1,6 +1,6 @@
 (() => {
   const PLAYLIST = "PL4VCJB1SddC5PD1Tb29bBtH06Xur5RAn9";
-  const EMBED = "https://www.youtube.com/embed/";
+  const EMBED = "https://www.youtube-nocookie.com/embed/"; // privacy-enhanced mode: no cookies until play
   // Set to true to show the search box above the song grid (handy once the playlist grows).
   const SHOW_SEARCH = false;
   // YouTube's feed lists at most this many songs, so beyond it the grid is only the newest ones.

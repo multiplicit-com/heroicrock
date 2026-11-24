@@ -86,7 +86,7 @@
         $("grid-title").textContent = "Latest additions";
         $("feed-note").hidden = false;
       } else {
-        $("grid-title").textContent = `Tracklist \u00b7 ${videos.length} songs`;
+        $("grid-title").textContent = "Tracklist";
       }
       render(videos);
 

@@ -35,7 +35,7 @@ const artists = [...new Set(videos.map(artistOf).filter(Boolean))];
 const named = artists.slice(0, 6);
 const more = artists.length > named.length;
 const list = more ? `${named.join(", ")} and more` : named.length > 1 ? `${named.slice(0, -1).join(", ")} and ${named.at(-1)}` : named[0] || "";
-const summary = `A hand-picked playlist of ${videos.length || ""} classic and heroic rock songs`.replace("  ", " ") + (list ? `, from ${list}` : "") + ".";
+const summary = "A hand-picked playlist of classic and heroic rock songs" + (list ? `, from ${list}` : "") + ".";
 const description = `${summary} Watch the whole playlist here.`;
 
 setMeta("name", "description", description);

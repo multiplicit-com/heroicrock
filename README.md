@@ -8,6 +8,11 @@ A static, zero-maintenance site for the Heroic Rock YouTube playlist, hosted on 
 - **Extras:** shuffle (press `S`), full screen (press `F`), shareable links (`heroicrock.com/#v=VIDEO_ID`).
   A search box is built in but switched off; set `SHOW_SEARCH = true` at the top of `app.js` to turn it on.
 
+## SEO
+
+`scripts/build-page.mjs` bakes the song list, meta description, and JSON-LD (MusicPlaylist) into `index.html`
+and writes `sitemap.xml`; the workflow runs it on every deploy. Social preview image: `assets/og.png`.
+
 ## Changing the playlist
 
 Edit `playlistId` in `site.json` and `PLAYLIST` in `app.js`.

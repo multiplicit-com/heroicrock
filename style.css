@@ -42,7 +42,7 @@ body {
 .hero { text-align: center; padding: 2.5rem 1rem 2rem; }
 .logo {
   margin: 0;
-  font: 400 clamp(2.6rem, 11vw, 9rem)/.85 var(--display);
+  font: 400 clamp(2.4rem, 9vw, 6.5rem)/.85 var(--display);
   letter-spacing: .04em;
   text-transform: uppercase;
   display: inline-flex;
@@ -145,6 +145,7 @@ main { width: min(1100px, 100% - 2rem); margin: 0 auto; }
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
+  text-decoration: none;
   transition: transform .2s, border-color .2s, box-shadow .2s;
 }
 .card:hover, .card:focus-visible { transform: translateY(-4px); border-color: var(--fire); box-shadow: 0 16px 40px -18px rgba(255, 90, 31, .7); outline: none; }
@@ -172,6 +173,7 @@ main { width: min(1100px, 100% - 2rem); margin: 0 auto; }
 .note { color: var(--muted); font-size: .85rem; text-align: center; margin-top: 1.5rem; }
 .empty { grid-column: 1 / -1; color: var(--muted); text-align: center; padding: 2rem; }
 
+footer .about { max-width: 40rem; margin: 0 auto .75rem; }
 footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 2rem 1rem 3rem; }
 
 @media (prefers-reduced-motion: reduce) {

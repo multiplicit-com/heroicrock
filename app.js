@@ -52,15 +52,19 @@
     }
     for (const v of list) {
       const li = document.createElement("li");
-      const btn = document.createElement("button");
-      btn.type = "button";
+      const btn = document.createElement("a");
+      btn.href = `https://www.youtube.com/watch?v=${v.id}&list=${PLAYLIST}`;
       btn.className = "card" + (current && current.id === v.id ? " playing" : "");
       btn.dataset.id = v.id;
       btn.innerHTML = `<div class="thumb"><img loading="lazy" alt=""></div><div class="meta"><h3></h3><p></p></div>`;
       btn.querySelector("img").src = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`;
       btn.querySelector("h3").textContent = v.title;
       btn.querySelector("p").textContent = [v.channel, fmtDate(v.published)].filter(Boolean).join(" · ");
-      btn.addEventListener("click", () => play(v));
+      btn.addEventListener("click", (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return; // let "open in new tab" work
+        e.preventDefault();
+        play(v);
+      });
       li.append(btn);
       grid.append(li);
     }

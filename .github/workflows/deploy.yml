@@ -1,5 +1,7 @@
 name: Refresh playlist and deploy
 
+# Public repo, so standard runners are free. Each run takes well under a minute,
+# and the daily run stops early (no deploy) when the playlist hasn't changed.
 on:
   push:
     branches: [main]
@@ -19,12 +21,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      deploy: ${{ steps.commit.outputs.changed == 'true' || github.event_name != 'schedule' }}
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
 
       - name: Pull latest videos from the playlist RSS feed
         run: node scripts/update-videos.mjs
@@ -34,38 +35,36 @@ jobs:
         run: node scripts/build-page.mjs
 
       - name: Commit refreshed files if they changed
+        id: commit
         run: |
           if ! git diff --quiet -- videos.json index.html sitemap.xml; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git commit -m "Refresh playlist videos" -- videos.json index.html sitemap.xml
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Collect site files
+        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
         run: |
           mkdir _site
           cp -r index.html style.css app.js videos.json robots.txt sitemap.xml CNAME .nojekyll assets _site/
 
       - uses: actions/upload-pages-artifact@v3
+        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
         with:
           path: _site
+          retention-days: 1
 
   deploy:
     needs: build
+    if: needs.build.outputs.deploy == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Check the live site responds
-        continue-on-error: true
-        run: |
-          sleep 20
-          for url in "${{ steps.deployment.outputs.page_url }}" https://heroicrock.com/ https://www.heroicrock.com/; do
-            code=$(curl -sL -o /tmp/page.html -w '%{http_code}' "$url" || echo fail)
-            echo "$url -> $code, title: $(grep -o '<title>[^<]*' /tmp/page.html | head -1)"
-          done

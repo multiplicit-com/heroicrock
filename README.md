@@ -3,7 +3,7 @@
 A static, zero-maintenance site for the Heroic Rock YouTube playlist, hosted on GitHub Pages.
 
 - **Player:** embeds the whole playlist (`youtube-nocookie.com`), so every song is always there.
-- **Video grid:** `videos.json` is refreshed daily by a GitHub Action from the playlist's public RSS feed
+- **Video grid:** `videos.json` is refreshed weekly by a GitHub Action from the playlist's public RSS feed
   (no API key). The feed only lists the ~15 most recent playlist entries, so once the playlist passes 15 songs the grid becomes "Latest additions" and a note points to the full list in the player.
 - **Extras:** shuffle (press `S`), full screen (press `F`), shareable links (`heroicrock.com/#v=VIDEO_ID`).
   A search box is built in but switched off; set `SHOW_SEARCH = true` at the top of `app.js` to turn it on.
@@ -11,7 +11,7 @@ A static, zero-maintenance site for the Heroic Rock YouTube playlist, hosted on 
 ## SEO
 
 `scripts/build-page.mjs` bakes the song list, meta description, and JSON-LD (MusicPlaylist) into `index.html`
-and writes `sitemap.xml`; the workflow runs it on every deploy. Social preview image: `assets/og.png`.
+and writes `sitemap.xml`; the workflow runs it on every deploy (weekly, plus on every push). Social preview image: `assets/og.png`.
 
 ## Changing the playlist
 

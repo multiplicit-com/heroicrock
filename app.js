@@ -1,6 +1,6 @@
 (() => {
   const PLAYLIST = "PL4VCJB1SddC5PD1Tb29bBtH06Xur5RAn9";
-  const EMBED = "https://www.youtube-nocookie.com/embed/";
+  const EMBED = "https://www.youtube.com/embed/";
 
   const $ = (id) => document.getElementById(id);
   const player = $("player");
@@ -87,8 +87,18 @@
     render(q ? videos.filter((v) => `${v.title} ${v.channel}`.toLowerCase().includes(q)) : videos);
   });
 
+  function fullscreen() {
+    const el = document.querySelector(".screen");
+    const req = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (req) req.call(el);
+    else window.open(ytLink.href, "_blank", "noopener"); // e.g. iPhone: use YouTube's own full screen
+  }
+  $("fullscreen").addEventListener("click", fullscreen);
+
   shuffleBtn.addEventListener("click", shuffle);
   document.addEventListener("keydown", (e) => {
-    if (e.key.toLowerCase() === "s" && !e.metaKey && !e.ctrlKey && document.activeElement !== search) shuffle();
+    if (e.metaKey || e.ctrlKey || document.activeElement === search) return;
+    if (e.key.toLowerCase() === "s") shuffle();
+    if (e.key.toLowerCase() === "f") fullscreen();
   });
 })();

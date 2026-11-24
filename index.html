@@ -26,13 +26,12 @@
       <svg class="bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
       <span>Rock</span>
     </h1>
-    <p class="tagline">Big riffs. Bigger choruses. Turn it up.</p>
   </header>
 
   <main>
     <section class="stage" aria-label="Player">
       <div class="screen">
-        <iframe id="player" title="Heroic Rock playlist player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe id="player" title="Heroic Rock playlist player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <div class="controls">
         <div class="now">
@@ -41,6 +40,7 @@
         </div>
         <div class="buttons">
           <button id="shuffle" class="btn" type="button" hidden title="Shortcut: S">&#x1F500; Shuffle</button>
+          <button id="fullscreen" class="btn ghost" type="button" title="Shortcut: F">&#x26F6; Full screen</button>
           <a id="yt-link" class="btn ghost" target="_blank" rel="noopener">Open on YouTube &#x2197;</a>
         </div>
       </div>

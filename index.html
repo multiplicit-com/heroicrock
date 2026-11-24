@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heroic Rock</title>
+  <meta name="description" content="Heroic Rock: a hand-picked playlist of big, loud, heroic rock. Press play.">
+  <meta property="og:title" content="Heroic Rock">
+  <meta property="og:description" content="A hand-picked playlist of big, loud, heroic rock. Press play.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://heroicrock.com/">
+  <meta name="theme-color" content="#0b0a0d">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+    <h1 class="logo">
+      <span>Heroic</span>
+      <svg class="bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
+      <span>Rock</span>
+    </h1>
+    <p class="tagline">Big riffs. Bigger choruses. Turn it up.</p>
+  </header>
+
+  <main>
+    <section class="stage" aria-label="Player">
+      <div class="screen">
+        <iframe id="player" title="Heroic Rock playlist player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="controls">
+        <div class="now">
+          <span class="label">Now playing</span>
+          <span id="now-title">The Heroic Rock playlist</span>
+        </div>
+        <div class="buttons">
+          <button id="shuffle" class="btn" type="button" hidden title="Shortcut: S">&#x1F500; Shuffle</button>
+          <a id="yt-link" class="btn ghost" target="_blank" rel="noopener">Open on YouTube &#x2197;</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="grid-section" class="tracks" hidden>
+      <div class="tracks-head">
+        <h2>Latest additions</h2>
+        <input id="search" type="search" placeholder="Search songs or bands" aria-label="Search songs or bands">
+      </div>
+      <ol id="grid" class="grid"></ol>
+      <p class="note">The full playlist is in the player above (use its playlist button, top right).</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>heroicrock.com &middot; <span id="updated">playlist refreshed daily</span></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

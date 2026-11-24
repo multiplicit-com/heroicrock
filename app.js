@@ -1,11 +1,15 @@
 (() => {
   const PLAYLIST = "PL4VCJB1SddC5PD1Tb29bBtH06Xur5RAn9";
   const EMBED = "https://www.youtube.com/embed/";
+  // Set to true to show the search box above the song grid (handy once the playlist grows).
+  const SHOW_SEARCH = false;
+  // YouTube's feed lists at most this many songs, so beyond it the grid is only the newest ones.
+  const FEED_LIMIT = 15;
 
   const $ = (id) => document.getElementById(id);
   const player = $("player");
   const nowTitle = $("now-title");
-  const ytLink = $("yt-link");
+  let ytUrl = `https://www.youtube.com/playlist?list=${PLAYLIST}`;
   const grid = $("grid");
   const search = $("search");
   const shuffleBtn = $("shuffle");
@@ -20,7 +24,7 @@
     current = video;
     player.src = videoSrc(video.id, autoplay);
     nowTitle.textContent = video.title;
-    ytLink.href = `https://www.youtube.com/watch?v=${video.id}&list=${PLAYLIST}`;
+    ytUrl = `https://www.youtube.com/watch?v=${video.id}&list=${PLAYLIST}`;
     history.replaceState(null, "", `#v=${video.id}`);
     document.querySelectorAll(".card").forEach((c) => c.classList.toggle("playing", c.dataset.id === video.id));
     if (scroll) document.querySelector(".stage").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -64,7 +68,6 @@
 
   // Default: the whole playlist.
   player.src = playlistSrc();
-  ytLink.href = `https://www.youtube.com/playlist?list=${PLAYLIST}`;
 
   fetch("videos.json", { cache: "no-cache" })
     .then((r) => (r.ok ? r.json() : null))
@@ -74,6 +77,13 @@
       $("grid-section").hidden = false;
       shuffleBtn.hidden = false;
       if (data.updated) $("updated").textContent = `playlist refreshed ${new Date(data.updated).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" })}`;
+      search.hidden = !SHOW_SEARCH;
+      if (videos.length >= FEED_LIMIT) {
+        $("grid-title").textContent = "Latest additions";
+        $("feed-note").hidden = false;
+      } else {
+        $("grid-title").textContent = `Tracklist \u00b7 ${videos.length} songs`;
+      }
       render(videos);
 
       const fromHash = location.hash.match(/v=([\w-]{6,})/);
@@ -91,7 +101,7 @@
     const el = document.querySelector(".screen");
     const req = el.requestFullscreen || el.webkitRequestFullscreen;
     if (req) req.call(el);
-    else window.open(ytLink.href, "_blank", "noopener"); // e.g. iPhone: use YouTube's own full screen
+    else window.open(ytUrl, "_blank", "noopener"); // e.g. iPhone: use YouTube's own full screen
   }
   $("fullscreen").addEventListener("click", fullscreen);
 

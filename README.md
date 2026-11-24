@@ -4,8 +4,9 @@ A static, zero-maintenance site for the Heroic Rock YouTube playlist, hosted on 
 
 - **Player:** embeds the whole playlist (`youtube-nocookie.com`), so every song is always there.
 - **Video grid:** `videos.json` is refreshed daily by a GitHub Action from the playlist's public RSS feed
-  (no API key). The feed only lists the ~15 most recent playlist entries, so the grid shows "latest additions".
-- **Extras:** search, shuffle (press `S`), shareable links (`heroicrock.com/#v=VIDEO_ID`).
+  (no API key). The feed only lists the ~15 most recent playlist entries, so once the playlist passes 15 songs the grid becomes "Latest additions" and a note points to the full list in the player.
+- **Extras:** shuffle (press `S`), full screen (press `F`), shareable links (`heroicrock.com/#v=VIDEO_ID`).
+  A search box is built in but switched off; set `SHOW_SEARCH = true` at the top of `app.js` to turn it on.
 
 ## Changing the playlist
 

@@ -41,18 +41,17 @@
         <div class="buttons">
           <button id="shuffle" class="btn" type="button" hidden title="Shortcut: S">&#x1F500; Shuffle</button>
           <button id="fullscreen" class="btn ghost" type="button" title="Shortcut: F">&#x26F6; Full screen</button>
-          <a id="yt-link" class="btn ghost" target="_blank" rel="noopener">Open on YouTube &#x2197;</a>
         </div>
       </div>
     </section>
 
     <section id="grid-section" class="tracks" hidden>
       <div class="tracks-head">
-        <h2>Latest additions</h2>
-        <input id="search" type="search" placeholder="Search songs or bands" aria-label="Search songs or bands">
+        <h2 id="grid-title">Tracklist</h2>
+        <input id="search" type="search" hidden placeholder="Search songs or bands" aria-label="Search songs or bands">
       </div>
       <ol id="grid" class="grid"></ol>
-      <p class="note">The full playlist is in the player above (use its playlist button, top right).</p>
+      <p id="feed-note" class="note" hidden>The full playlist is in the player above (use its playlist button, top right).</p>
     </section>
   </main>
 

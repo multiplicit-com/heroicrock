@@ -57,3 +57,12 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Check the live site responds
+        continue-on-error: true
+        run: |
+          sleep 20
+          for url in "${{ steps.deployment.outputs.page_url }}" https://heroicrock.com/ https://www.heroicrock.com/; do
+            code=$(curl -sL -o /tmp/page.html -w '%{http_code}' "$url" || echo fail)
+            echo "$url -> $code, title: $(grep -o '<title>[^<]*' /tmp/page.html | head -1)"
+          done

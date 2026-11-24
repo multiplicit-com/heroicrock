@@ -42,7 +42,6 @@ const videos = entries
     title: tag(e, "title"),
     channel: tag((e.match(/<author>([\s\S]*?)<\/author>/) || [])[1] || "", "name"),
     published: tag(e, "published"),
-    views: Number(attr(e, "media:statistics", "views")) || null,
     description: tag(e, "media:description").slice(0, 400),
   }))
   .filter((v) => v.id);
